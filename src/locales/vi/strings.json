@@ -1,0 +1,45 @@
+
+{
+  "hello": "Xin chào",
+  "welcome": "Chào mừng đến với ứng dụng của tôi",
+
+  "bottomTab": {
+    "home": "Trang chủ",
+    "assistant": "Trợ lí",
+    "search": "Tìm kiếm",
+    "storage": "Lưu trữ",
+    "user": "Cá nhân"
+  },
+  "headerAssistantScreen": {
+    "title": "Trợ lý Pháp luật"
+  },
+  "buttons": {
+    "submit": "Đồng ý",
+    "cancel": "Huỷ",
+    "conversation_assessment": "Đánh giá hội thoại",
+    "save_the_conversation": "Lưu cuộc hội thoại"
+  },
+  "input": {
+    "content_of_exchange": "Nội dung cần trao đổi"
+  },
+  "serviceText": {
+    "search": "Tìm kiếm",
+    "search_title": "Tìm kiếm văn bản, thủ tục, hướng dẫn pháp lý doanh nghiệp với công nghệ Trí tuệ nhân tạo (AI)",
+    "cancel_text": "Huỷ",
+    "button_chat_boss_text": "Nói chuyện cùng Trợ lý ảo pháp luật "
+  },
+  "serviceName": {
+    "enterprise": "Doanh nghiệp",
+    "workers": "Người lao động",
+    "government_agencies": "Cơ quan chính phủ",
+    "legislation": "Văn bản pháp luật",
+    "administrative_procedures": "Thủ tục hành chính",
+    "implementation_guide": "Hướng dẫn thực hiện"
+  },
+  "totalName": {
+    "information": "Thông tin",
+    "document": "Văn bản",
+    "procedure": "Thủ tục",
+    "instruct": "Hướng dẫn"
+  }
+}

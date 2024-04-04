@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>BPMN Viewer</title>
+  <style>
+    #canvas {
+      transform: rotate(90deg);
+      transform-origin: right top;
+      width: 100vh;
+      height: 100vw;
+      overflow-x: hidden;
+      position: absolute;
+      top: 100%;
+      right: 0;
+    }
+
+    @media screen and (orientation: landscape) {
+      #canvas {
+        transform: rotate(0deg);
+        transform-origin: left top;
+        width: 100vw;
+        height: 100vh;
+        overflow-x: hidden;
+        position: absolute;
+        top: 100%;
+        right: 0;
+      }
+    }
+
+    #dialogContent {
+      position: absolute;
+      display: none;
+      width: 100vh;
+      height: 100vw;
+      z-index: 99;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    #container {
+      margin: 0 auto;
+      margin-top: 1%;
+      width: 92vh;
+      height: 92vw;
+      border-radius: 20px;
+      background-color: white;
+      padding: 16px;
+    }
+
+    #btnDisplay {
+      font-size: 30px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="canvas">
+    <div id="dialogContent">
+      <div id="container">
+        <div style=" display: flex;flex-direction: row;">
+          <div style="display: flex;flex: 1;"></div>
+          <input id="btnDisplay" type="button" value="x" onclick="noneDilog()">
+        </div>
+        <div id="content"></div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bpmn-js/dist/bpmn-viewer.production.min.js"></script>
+  <script>
+    const urlAPI = "https://apis.trolyphapluat.ai/detail/2.001199";
+    var myDialog = document.getElementById('dialogContent')
+    var btnDisplay = document.getElementById('btnDisplay')
+
+    function getThuTuc() {
+      return new Promise((resolve, reject) => {
+        fetch(urlAPI)
+          .then(response => response.json())
+          .then(json => {
+            resolve(json);
+          })
+          .catch(error => {
+            console.log("Get API is error:", error);
+            reject(error);
+          });
+      });
+    }
+
+    getThuTuc()
+      .then(data => {
+        // console.log(data.result.thongTinChung.bpmnFileName);
+
+        function displayDialog() {
+          myDialog.style.display = 'block';
+        }
+
+        function detail(e) {
+
+          const datas = data.result.thuTucThucHien
+          const idNodes = JSON.stringify(e.element.id);
+          // console.log(idNodes);
+          for (let i = 0; i < datas.length; i++) {
+            const obj = datas[i];
+            const objString = JSON.stringify(obj.nodeID);
+            // console.log(objString);
+            if (idNodes == objString) {
+              var content = document.getElementById('content')
+              if (obj.nodeContent !== '') {
+                displayDialog()
+                content.innerHTML = (obj.nodeContent)
+              } else {
+                return
+              }
+              break;
+            }
+
+          }
+
+
+        }
+
+
+        console.log(data);
+        var BPMNFileName = data.result.thongTinChung.bpmnFileName
+
+
+        fetch(`https://apis.trolyphapluat.ai/${BPMNFileName}`)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.blob();
+          })
+          .then(blobData => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              var content = e.target.result;
+              // console.log(content);
+
+
+              var bpmnViewer = new BpmnJS({ container: '#canvas' });
+              var canvas = bpmnViewer.get('canvas');
+              canvas.zoom('fit-viewport');
+
+              var eventBus = bpmnViewer.get('eventBus');
+
+
+              var events = [
+
+                'element.click',
+                // 'element.hover',
+                // 'element.out',
+                // 'element.click',
+                // 'element.dblclick',
+                // 'element.mousedown',
+                // 'element.mouseup'
+
+              ];
+
+
+              events.forEach(function (event) {
+
+                eventBus.on(event, function (e) {
+                  console.log("Event: " + JSON.stringify(e))
+                  // displayDialog()
+                  detail(e)
+                })
+              })
+
+              try {
+                bpmnViewer.importXML(content);
+
+
+              } catch (err) {
+                console.error('Error rendering BPMN', err);
+              }
+            };
+            reader.readAsText(blobData);
+          })
+          .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    function noneDilog() {
+      myDialog.style.display = 'none';
+    }
+
+
+  </script>
+</body>
+
+</html>

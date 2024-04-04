@@ -1,0 +1,45 @@
+
+
+{
+  "hello": "Hello",
+  "welcome": "Welcome to my app",
+  "bottomTab": {
+    "home": "Home",
+    "assistant": "Assistant",
+    "search": "Search",
+    "storage": "Storage",
+    "user": "User"
+  },
+  "headerAssistantScreen": {
+    "title": "AI Legal Virtual Assistant"
+  },
+  "buttons": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "conversation_assessment": "Conversation assessment",
+    "save_the_conversation": "Save the conversation"
+  },
+  "input": {
+    "content_of_exchange": "Content of exchange"
+  },
+  "serviceText": {
+    "search": "Search",
+    "search_title": "Search for documents, procedures, and business legal instructions with Artificial Intelligence (AI) technology",
+    "cancel_text": "Cancel",
+    "button_chat_boss_text": "Talk to Virtual Legal Assistant"
+  },
+  "serviceName": {
+    "enterprise": "Enterprise",
+    "workers": "Workers",
+    "government_agencies": "Government Agencies",
+    "legislation": "Legislation",
+    "administrative_procedures": "Administrative Procedures",
+    "implementation_guide": "Implementation Guide"
+  },
+  "totalName": {
+    "information": "Information",
+    "document": "Information",
+    "procedure": "Procedure",
+    "instruct": "Instruct"
+  }
+}
